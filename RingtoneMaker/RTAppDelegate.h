@@ -11,17 +11,21 @@
 #import <AVFoundation/AVFoundation.h>
 #import "RTDndView.h"
 #import "RTSlider.h"
+#import "RTImageView.h"
 
 @interface RTAppDelegate : NSObject <NSApplicationDelegate, AVAudioPlayerDelegate>
 {
 @private
     AVAudioPlayer * audioPlayer_;
+    NSURL * audioFileURL_;
+    NSURL * outputURL_;
 }
 
 @property (assign) IBOutlet NSWindow * window;
 @property (strong) IBOutlet RTDndView * dndView;
 
 @property (strong) IBOutlet NSButton * playButton;
+@property (strong) IBOutlet NSButton * play2Button;
 @property (strong) IBOutlet NSButton * ripButton;
 @property (strong) IBOutlet NSButton * startButton;
 @property (strong) IBOutlet NSButton * endButton;
@@ -33,14 +37,19 @@
 @property (strong) IBOutlet RTSlider * audioSlider;
 
 @property (strong) IBOutlet NSTextField * currentTimeLabel;
+@property (strong) IBOutlet RTImageView * audioImageView;
+@property (strong) IBOutlet NSTextField * dragMeLabel;
 
 - (void) enableControls:(id)dummy;
 - (void) disableControls:(id)dummy;
+
+- (void) audioTrimmed:(id)dummy;
 
 - (void) updateAudioSlider:(id)dummy;
 - (IBAction) audioSliderUpdated:(id)sender;
 
 - (IBAction) playButtonPressed:(id)sender;
+- (IBAction) playIntervalButtonPressed:(id)sender;
 - (IBAction) ripButtonPressed:(id)sender;
 - (IBAction) startTimeButtonPressed:(id)sender;
 - (IBAction) endTimeButtonPressed:(id)sender;

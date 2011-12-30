@@ -9,6 +9,7 @@
 #import "RTDndView.h"
 #import "RTLog.h"
 #import "RTNotifications.h"
+#import "RTImageView.h"
 
 
 #define RTItunesPboardType @"com.apple.pasteboard.promised-file-url"
@@ -86,7 +87,7 @@
 
 - (NSString *) getTempFilePath:(NSString *)extension
 {
-    return [NSTemporaryDirectory() stringByAppendingPathComponent: [NSString stringWithFormat: @"%.0f.%@", [NSDate timeIntervalSinceReferenceDate] * 1000.0, extension]];
+    return [NSTemporaryDirectory() stringByAppendingPathComponent: [NSString stringWithFormat: @"rtone_%.0f.%@", [NSDate timeIntervalSinceReferenceDate] * 1000.0, extension]];
 }
 
 - (NSString *) prepareAudioFile:(NSString *)filePath
@@ -110,37 +111,55 @@
 
 - (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender
 {
-    RTLog(@"draggingEntered()");
+    RTLog(@"RTDndView - draggingEntered()");
     
     NSPasteboard * pboard;
     NSDragOperation sourceDragMask;
+    id draggingSource = [sender draggingSource];
     
     sourceDragMask = [sender draggingSourceOperationMask];
     pboard = [sender draggingPasteboard];
     
+    
+    // Check if it's local
+    if (draggingSource && [draggingSource isKindOfClass:[RTImageView class]]) {
+        RTLog(@"RTDndView - is local dragging");
+        return NSDragOperationNone;
+    }
+    
+    // OK pboard
     if ( [[pboard types] containsObject:NSFilenamesPboardType] ) {
-        RTLog(@"Drag for SOUND FILE PATH");
+        RTLog(@"RTDndView - Drag for SOUND FILE PATH");
         return NSDragOperationEvery;
     } else {
-        RTLog(@"Drag for ITUNES ITEM");
+        RTLog(@"RTDndView - Drag for ITUNES ITEM");
         return NSDragOperationEvery;
     }
     
-    RTLog(@"Drag for UNKNOWN");
+    RTLog(@"RTDndView - Drag for UNKNOWN");
     return NSDragOperationNone;
 }
 
 - (void)draggingEnded:(id<NSDraggingInfo>)sender
 {
-    RTLog(@"draggingEnded()");
-    [[NSNotificationCenter defaultCenter] postNotificationName:RT_NOTIFICATION_END_DROPPING object:self userInfo:[NSDictionary dictionaryWithObject:tempFilePath_ forKey:@"audioFilePath"]];
+    RTLog(@"RTDndView - draggingEnded()");
+    
+    // Check if it's local
+    id draggingSource = [sender draggingSource];
+    if (!draggingSource || ![draggingSource isKindOfClass:[RTImageView class]]) {
+        RTLog(@"RTDndView - draggingEnded() IS NOT LOCAL dragging");
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:RT_NOTIFICATION_END_DROPPING object:self userInfo:[NSDictionary dictionaryWithObject:tempFilePath_ forKey:@"audioFilePath"]];
+    } else {
+        RTLog(@"RTDndView - draggingEnded() IS LOCAL dragging");
+    }
+    
     draggingInProgress_ = NO;
 }
 
 -(void)draggingExited:(id<NSDraggingInfo>)sender
 {
-    RTLog(@"draggingExited()");
-    [[NSNotificationCenter defaultCenter] postNotificationName:RT_NOTIFICATION_END_DROPPING object:self];
+    RTLog(@"RTDndView - draggingExited()");
     draggingInProgress_ = NO;
 }
 
@@ -149,10 +168,10 @@
 
 - (BOOL)prepareForDragOperation:(id<NSDraggingInfo>)sender
 {
-    RTLog(@"prepareForDragOperation()");
+    RTLog(@"RTDndView - prepareForDragOperation()");
     
     if (draggingInProgress_) {
-        RTLog(@"Dragging is already in progress");
+        RTLog(@"RTDndView - Dragging is already in progress");
         return NO;
     }
     
@@ -166,7 +185,7 @@
     @synchronized(self)
     {
         
-        RTLog(@"performDragOperation()");
+        RTLog(@"RTDndView - performDragOperation()");
         
         NSString * firstFilePath = nil;   //dropped file path
         
@@ -180,19 +199,19 @@
             
             if ( [[pboard types] containsObject:NSFilenamesPboardType] ) {
                 
-                RTLog(@"Perform Drag for SOUND FILE PATH");
+                RTLog(@"RTDndView - Perform Drag for SOUND FILE PATH");
                 
                 // Sound file
                 NSArray * files = [pboard propertyListForType:NSFilenamesPboardType];
                 for (NSString * fpath in files) {
-                    NSLog(@"Dragged file path found: %@", fpath);
+                    RTLog(@"RTDndView - Dragged file path found: %@", fpath);
                     firstFilePath = fpath;
                     break;
                 }
                 
             } else {
                 
-                RTLog(@"Perform Drag for ITUNES ITEM");
+                RTLog(@"RTDndView - Perform Drag for ITUNES ITEM");
                 
                 // iTunes sound
                 NSArray * files = [pboard pasteboardItems];
@@ -208,11 +227,11 @@
                             
                             NSString * urlString = [item stringForType:type];
                             if (urlString) {
-                                RTLog(@"iTunes file found: %@", urlString);
+                                RTLog(@"RTDndView - iTunes file found: %@", urlString);
                                 
                                 firstFilePath = [[NSURL URLWithString:urlString] path];
                                 if (firstFilePath != nil) {
-                                    NSLog(@"iTunes file is valid and its path is %@", firstFilePath);
+                                    RTLog(@"RTDndView - iTunes file is valid and its path is %@", firstFilePath);
                                 }
                                 
                                 break;
@@ -238,7 +257,7 @@
         }
         @catch (NSException *e)
         {
-            RTLog(@"Cannot get and process dragged object's file path: %@", [e description]);
+            RTLog(@"RTDndView - Cannot get and process dragged object's file path: %@", [e description]);
         }
         
         return YES;
@@ -248,7 +267,7 @@
 
 - (void)concludeDragOperation:(id<NSDraggingInfo>)sender
 {
-    RTLog(@"concludeDragOperation()");
+    RTLog(@"RTDndView - concludeDragOperation()");
 }
 
 @end
