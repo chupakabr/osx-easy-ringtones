@@ -12,6 +12,7 @@
 {
 @private
     NSString * tempFilePath_;
+    NSString * origFileName_;
     BOOL draggingInProgress_;
 }
 

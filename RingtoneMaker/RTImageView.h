@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
 
-@interface RTImageView : NSImageView<NSDraggingSource, NSPasteboardItemDataProvider>
+#define RTPasteBoardName @"RTPasteBoard"
+
+@interface RTImageView : NSImageView<NSDraggingSource>
 
 @property (strong) NSURL * fileUrl;
 

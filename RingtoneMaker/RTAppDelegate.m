@@ -26,6 +26,8 @@
 
 - (NSString *) getTimeString:(NSTimeInterval)time;
 - (NSTimeInterval) getTimeInterval:(NSString *)timeStr;
+- (void) removeFile:(NSURL *)fileURL;
+- (void) removeFileAtPath:(NSString *)filePath;
 
 @end
 
@@ -91,16 +93,19 @@
     RTLog(@"AppDelegate - applicationWillTerminate() - start");
     
     // Delete temporary audio file
-    [self.dndView appWillClose];
+    if (audioFileURL_) {
+        RTLog(@"Cleaning up temporary audio ORIG file at URL '%@'", audioFileURL_);
+        [self removeFile:audioFileURL_];
+    }
     
     // Delete temporary audio M4A file (ringtone file)
     if (outputURL_) {
-        RTLog(@"Cleaning up temporary audio M4A file at URL %@", outputURL_);
-        NSError * errors;
-        if (![[NSFileManager defaultManager] removeItemAtURL:outputURL_ error:&errors]) {
-            RTLog(@"Cannot delete temporary audio M4A file at URL %@: %@", outputURL_, [errors description]);
-        }
+        RTLog(@"Cleaning up temporary audio M4A file at URL '%@'", outputURL_);
+        [self removeFile:outputURL_];
     }
+    
+    // RTDndView cleanup
+    [self.dndView appWillClose];
     
     RTLog(@"AppDelegate - applicationWillTerminate() - exit");
 }
@@ -111,8 +116,9 @@
 - (void) enableControls:(id)dummy
 {
     RTLog(@"RTAppDelegate - enableControls()");
+    
     [self.progressIndicator setHidden:YES];
-    [self.progressIndicator startAnimation:self];
+    [self.progressIndicator stopAnimation:self];
     
     // enable buttons
     [self.playButton setEnabled:YES];
@@ -123,11 +129,17 @@
     [self.endButton setEnabled:YES];
 }
 
-- (void) disableControls:(id)dummy
+- (void) disableControls:(NSNumber *)noProgressIndicator
 {
-    RTLog(@"RTAppDelegate - disableControls()");
-    [self.progressIndicator stopAnimation:self];
-    [self.progressIndicator setHidden:NO];
+    RTLog(@"RTAppDelegate - disableControls(%@)", noProgressIndicator);
+    
+    if (noProgressIndicator == nil || ![noProgressIndicator boolValue]) {
+        [self.progressIndicator startAnimation:self];
+        [self.progressIndicator setHidden:NO];
+    } else {
+        [self.progressIndicator setHidden:YES];
+        [self.progressIndicator stopAnimation:self];        
+    }
     
     // disable buttons
     [self.playButton setEnabled:NO];
@@ -146,6 +158,16 @@
     [self.audioImageView setFileUrl:outputURL_];
     [self.audioImageView setHidden:NO];
     [self.dragMeLabel setHidden:NO];
+}
+
+- (void) hideAudioTrimResult:(id)dummy
+{
+    RTLog(@"RTAppDelegate - hideAudioTrimResult()");
+    
+    // Show audio image view for dragging
+    [self.audioImageView setFileUrl:nil];
+    [self.audioImageView setHidden:YES];
+    [self.dragMeLabel setHidden:YES];
 }
 
 
@@ -169,6 +191,7 @@
     @catch (NSException *e)
     {
         RTLog(@"Cannot play/stop audio player: %@", [e description]);
+        [[NSAlert alertWithMessageText:@"Cannot play audio" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
     }
 }
 
@@ -177,7 +200,20 @@
     RTLog(@"RTAppDelegate - playIntervalButtonPressed()");
     
     [self.audioSlider setDoubleValue:[self getTimeInterval:[self.startTimeText stringValue]]];
-    [self playButtonPressed:sender];
+    
+    @try
+    {
+        [audioPlayer_ setCurrentTime:[self.audioSlider doubleValue]];
+        if ([self.playButton.title compare:RT_BUTTON_PLAY] == NSOrderedSame) {
+            [audioPlayer_ play];
+            [self.playButton setTitle:RT_BUTTON_STOP];
+        }
+    }
+    @catch (NSException *e)
+    {
+        RTLog(@"Cannot play/stop trimmed audio player: %@", [e description]);
+        [[NSAlert alertWithMessageText:@"Cannot play trimmed audio" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
+    }    
 }
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
@@ -186,34 +222,59 @@
     [self.playButton performSelectorOnMainThread:@selector(setTitle:) withObject:RT_BUTTON_PLAY waitUntilDone:YES];
 }
 
-- (void) initAudioAndControls:(NSString *)filePath
+- (void) initAudioAndControls:(NSDictionary *)dict
 {
-    RTLog(@"RTAppDelegate - initAudioAndControls() with %@", filePath);
+    RTLog(@"RTAppDelegate - initAudioAndControls() with %@", dict);
     
-    // Cleanup previous player
+    // Init new file path
+    NSString * audioFilePath = [dict objectForKey:@"audioFilePath"];
+    RTLog(@"RTAppDelegate - Audio file path is '%@'", audioFilePath);
+    
+    NSURL * newAudioUrl = [NSURL fileURLWithPath:audioFilePath];
+    RTLog(@"RTAppDelegate - New Audio file URL is '%@', ext='%@'", newAudioUrl, [newAudioUrl pathExtension]);  // TODO Strange URL is here    
+    
+    // Init new player
+    NSError * errors;
+    AVAudioPlayer * newAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:newAudioUrl error:&errors];
+    if (!newAudioPlayer) {
+        RTLog(@"RTAppDelegate - Cannot init new AVAudioPlayer! file: '%@'", newAudioUrl);
+        [NSException raise:@"RTCannotCreateAudioPlayer" format:[errors description]];
+    }
+    newAudioPlayer.delegate = self;
+    
+    // Cleanup previous player and replace with new
     if (audioPlayer_) {
         [audioPlayer_ stop];
         [audioPlayer_ release];
     }
+    audioPlayer_ = newAudioPlayer;
     
     // Init file paths
     if (audioFileURL_) {
+        // Cleanup prev file
+        RTLog(@"RTAppDelegate - Cleanup prev audioFileURL '%@'", audioFileURL_);
+        [self removeFile:audioFileURL_];
         [audioFileURL_ release];
     }
-    audioFileURL_ = [[NSURL alloc] initFileURLWithPath:filePath];
+    audioFileURL_ = [newAudioUrl retain];
     
+    // Make output file URL
+    NSString * outFilename = [dict objectForKey:@"origFileName"];
+    if (!outFilename) {
+        outFilename = @"Ringtone - Unknown Artist.mp3";
+    }
+    RTLog(@"RTAppDelegate - output file name is '%@'", outFilename);
+    
+    // TODO Check the file already exists
+    NSURL * outputURLTemp = [[audioFileURL_ URLByDeletingLastPathComponent] URLByAppendingPathComponent:outFilename];
     if (outputURL_) {
+        // Cleanup prev output file
+        RTLog(@"RTAppDelegate - Cleanup prev outputURL '%@'", outputURL_);
+        [self removeFile:outputURL_];
         [outputURL_ release];
     }
-    outputURL_ = [[[audioFileURL_ URLByDeletingPathExtension] URLByAppendingPathExtension:@"m4r"] retain];
-    
-    // Init new player
-    NSError * errors;
-    audioPlayer_ = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL_ error:&errors];
-    if (!audioPlayer_) {
-        [NSException raise:@"RTCannotCreateAudioPlayer" format:[errors description]];
-    }
-    audioPlayer_.delegate = self;
+    outputURL_ = [[[outputURLTemp URLByDeletingPathExtension] URLByAppendingPathExtension:@"m4r"] retain];
+    RTLog(@"RTAppDelegate - output file URL is '%@'", outputURL_);
     
     // Update slider values
     [self.audioSlider setDoubleValue:0.0];
@@ -221,6 +282,8 @@
     
     // Update play/stop button text
     [self.playButton setTitle:RT_BUTTON_PLAY];
+    
+    RTLog(@"RTAppDelegate - initAudioAndControls() DONE");
 }
 
 - (void) updateAudioSlider:(id)dummy
@@ -253,42 +316,51 @@
 {
     RTLog(@"RTAppDelegate - ripButtonPressed()");
     
-    // Disable controls
-    [self performSelectorOnMainThread:@selector(disableControls:) withObject:nil waitUntilDone:YES];
-    
-    // Setected trimming positions
-    NSTimeInterval startPosition = [self getTimeInterval:[self.startTimeText stringValue]];
-    NSTimeInterval endPosition = [self getTimeInterval:[self.endTimeText stringValue]];
-    RTLog(@"Rip Audio File for interval: startTime(%f) endTime(%f)", startPosition, endPosition);
-    
-    // Prepare for audio trimming
-    RTLog(@"Output Rip file URL: %@ -> %@", audioFileURL_, outputURL_);
-    
-    AVMutableComposition * avComposition = [AVMutableComposition composition];
-    AVURLAsset * audioFileAsset = [AVURLAsset assetWithURL:audioFileURL_];
-    
-    int32_t timescale = [audioFileAsset duration].timescale;
-    CMTimeRange audioDuration = CMTimeRangeMake(CMTimeMakeWithSeconds(startPosition, timescale), CMTimeMakeWithSeconds(endPosition-startPosition, timescale));
-    
-    NSError * errors;
-    if (![avComposition insertTimeRange:audioDuration ofAsset:audioFileAsset atTime:kCMTimeZero error:&errors]) {
-        [NSException raise:@"RTCannotRipAudioFile" format:[errors description]];
+    @try {
+            
+        // Disable controls
+        [self performSelectorOnMainThread:@selector(disableControls:) withObject:nil waitUntilDone:YES];
+        
+        // Setected trimming positions
+        NSTimeInterval startPosition = [self getTimeInterval:[self.startTimeText stringValue]];
+        NSTimeInterval endPosition = [self getTimeInterval:[self.endTimeText stringValue]];
+        RTLog(@"Rip Audio File for interval: startTime(%f) endTime(%f)", startPosition, endPosition);
+        
+        // Prepare for audio trimming
+        RTLog(@"Output Rip file URL: '%@' -> '%@'", audioFileURL_, outputURL_);
+        
+        AVMutableComposition * avComposition = [AVMutableComposition composition];
+        AVURLAsset * audioFileAsset = [AVURLAsset assetWithURL:audioFileURL_];
+        
+        int32_t timescale = [audioFileAsset duration].timescale;
+        CMTimeRange audioDuration = CMTimeRangeMake(CMTimeMakeWithSeconds(startPosition, timescale), CMTimeMakeWithSeconds(endPosition-startPosition, timescale));
+        
+        NSError * errors;
+        if (![avComposition insertTimeRange:audioDuration ofAsset:audioFileAsset atTime:kCMTimeZero error:&errors]) {
+            [NSException raise:@"RTCannotRipAudioFile" format:[errors description]];
+        }
+        
+        // Export audio
+        AVAssetExportSession * exporter = [[AVAssetExportSession alloc] initWithAsset:avComposition presetName:AVAssetExportPresetAppleM4A];
+        exporter.outputURL = outputURL_;
+        exporter.outputFileType = AVFileTypeAppleM4A;
+        
+        RTLog(@"Supported exporting types: %@", [exporter supportedFileTypes]);
+        
+        // ...with complete handler
+        [exporter exportAsynchronouslyWithCompletionHandler:^{
+            RTLog(@"WOW! Audio file ripping completed successfully!");
+            [self performSelectorOnMainThread:@selector(enableControls:) withObject:nil waitUntilDone:YES];
+            [self performSelectorOnMainThread:@selector(audioTrimmed:) withObject:nil waitUntilDone:YES];
+            [exporter release];
+        }];
     }
-    
-    // Export audio
-    AVAssetExportSession * exporter = [[AVAssetExportSession alloc] initWithAsset:avComposition presetName:AVAssetExportPresetAppleM4A];
-    exporter.outputURL = outputURL_;
-    exporter.outputFileType = AVFileTypeAppleM4A;
-	
-    RTLog(@"Supported exporting types: %@", [exporter supportedFileTypes]);
-    
-    // ...with complete handler
-    [exporter exportAsynchronouslyWithCompletionHandler:^{
-        RTLog(@"WOW! Audio file ripping completed successfully!");
+    @catch (NSException *e)
+    {
+        RTLog(@"ERR! Cannot Rip audio composition: %@", [e description]);
+        [[NSAlert alertWithMessageText:@"Cannot trim audio" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
         [self performSelectorOnMainThread:@selector(enableControls:) withObject:nil waitUntilDone:YES];
-        [self performSelectorOnMainThread:@selector(audioTrimmed:) withObject:nil waitUntilDone:YES];
-        [exporter release];
-	}];    
+    }
 }
 
 - (IBAction) startTimeButtonPressed:(id)sender
@@ -358,13 +430,36 @@
     return tm;
 }
 
+- (void) removeFile:(NSURL *)fileURL
+{
+    if (fileURL) {
+        RTLog(@"Removing file at URL '%@'", fileURL);
+        
+        @try {
+            NSError * errors;
+            if (![[NSFileManager defaultManager] removeItemAtURL:fileURL error:&errors]) {
+                RTLog(@"Cannot remove file at URL '%@': %@", fileURL, [errors description]);
+            }
+        }
+        @catch (NSException *e)
+        {
+            RTLog(@"Cannot remove file at URL '%@': %@", fileURL, [e description]);
+        }
+    }    
+}
+
+- (void) removeFileAtPath:(NSString *)filePath
+{
+    if (filePath) {
+        [self removeFile:[NSURL fileURLWithPath:filePath]];
+    }
+}
 
 #pragma mark - Notifications handlers
 
 - (void) startDroppingNotificationHandler:(NSNotification *)notification
 {
     RTLog(@"RTAppDelegate - startDroppingNotificationHandler()");
-    
     [self performSelectorOnMainThread:@selector(disableControls:) withObject:nil waitUntilDone:YES];
 }
 
@@ -372,32 +467,47 @@
 {
     RTLog(@"RTAppDelegate - endDroppingNotificationHandler()");
     
-    // Init audio player
-    NSString * audioFilePath = [[notification userInfo] valueForKey:@"audioFilePath"];
-    if (!audioFilePath) {
-        [NSException raise:@"RTAudioFileNotFound" format:@"Empty audio file path passed in the notification object"];
+    NSString * audioFilePath = [[notification userInfo] objectForKey:@"audioFilePath"];
+    @try {
+        
+        // Init audio player
+        if (!audioFilePath) {
+            [NSException raise:@"RTAudioFileNotFound" format:@"Empty audio file path passed in the notification object"];
+        }
+        
+        RTLog(@"Audio File Path from notification is '%@'", audioFilePath);
+        NSDictionary * dict = [[[notification userInfo] retain] autorelease];
+        [self performSelectorOnMainThread:@selector(initAudioAndControls:) withObject:dict waitUntilDone:YES];
     }
-    
-    RTLog(@"Audio File Path from notification is %@", audioFilePath);
-    [self performSelectorOnMainThread:@selector(initAudioAndControls:) withObject:audioFilePath waitUntilDone:YES];
-    
-    // Enable controls
-    [self performSelectorOnMainThread:@selector(enableControls:) withObject:nil waitUntilDone:YES];
+    @catch (NSException *e)
+    {
+        RTLog(@"ERR! Cannot drop audio file: '%@'", [e description]);
+        [self removeFileAtPath:audioFilePath];
+        [[NSAlert alertWithMessageText:@"Invalid audio file" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
+    }
+    @finally
+    {
+        // Enable controls
+        if (outputURL_ != nil) {
+            [self performSelectorOnMainThread:@selector(enableControls:) withObject:nil waitUntilDone:YES];
+        } else {
+            [self performSelectorOnMainThread:@selector(disableControls:) withObject:[NSNumber numberWithBool:YES] waitUntilDone:YES];
+        }
+        
+        // Hide prev trim results
+        [self performSelectorOnMainThread:@selector(hideAudioTrimResult:) withObject:nil waitUntilDone:YES];
+    }
 }
 
 - (void) startRippingNotificationHandler:(NSNotification *)notification
 {
     RTLog(@"RTAppDelegate - startRippingNotificationHandler()");
-    
-    // TODO
     [self performSelectorOnMainThread:@selector(disableControls:) withObject:nil waitUntilDone:YES];
 }
 
 - (void) endRippingNotificationHandler:(NSNotification *)notification
 {
     RTLog(@"RTAppDelegate - endRippingNotificationHandler()");
-    
-    // TODO
     [self performSelectorOnMainThread:@selector(enableControls:) withObject:nil waitUntilDone:YES];
 }
 

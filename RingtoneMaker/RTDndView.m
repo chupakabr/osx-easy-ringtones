@@ -47,6 +47,10 @@
         [tempFilePath_ release];
     }
     
+    if (origFileName_) {
+        [origFileName_ release];
+    }
+    
     [self release];
 }
 
@@ -61,25 +65,26 @@
 {
     RTLog(@"RTDndView - appWillClose()");
     
-    [self cleanupCurrentAudio];
+    if (origFileName_) {
+        [origFileName_ release];
+    }
+    
+    if (tempFilePath_) {
+        [tempFilePath_ release];
+    }
 }
 
 - (void) cleanupCurrentAudio
 {
     RTLog(@"RTDndView - cleanupCurrentAudio()");
     
-    if (!tempFilePath_) {
-        return;
+    if (origFileName_) {
+        [origFileName_ release];
     }
     
-    // Cleanup temp audio file
-    RTLog(@"Cleaning up temporary audio file at path %@", tempFilePath_);
-    NSError * errors;
-    if (![[NSFileManager defaultManager] removeItemAtPath:tempFilePath_ error:&errors]) {
-        RTLog(@"Cannot delete temporary audio file at path %@: %@", tempFilePath_, [errors description]);
+    if (tempFilePath_) {
+        [tempFilePath_ release];
     }
-    
-    [tempFilePath_ release];
 }
 
 
@@ -92,14 +97,26 @@
 
 - (NSString *) prepareAudioFile:(NSString *)filePath
 {
-    NSString * extension = [[NSURL URLWithString:filePath] pathExtension];
+    RTLog(@"RTDndView - prepareAudioFile");
+    
+    NSString * extension = [[NSURL fileURLWithPath:filePath] pathExtension];
+    RTLog(@"EXTENSION '%@'", extension);
+    if ([extension characterAtIndex:([extension length]-1)] == 0) {
+        extension = [extension substringToIndex:3];
+        RTLog(@"EXTENSION last char is zero so it was trimmed to '%@'", extension);
+    }
+    
     NSString * tempFilePath = [self getTempFilePath:extension];
+    RTLog(@"RTDndView - tempFilePath is '%@'", tempFilePath);
     
     // Copy original audio file to newely created
     NSError * errors;
     if (![[NSFileManager defaultManager] copyItemAtPath:filePath toPath:tempFilePath error:&errors]) {
         [NSException raise:@"RTCannotCopyAudioFile" format:[errors description]];
     }
+    
+    // Store orig file name
+    origFileName_ = [[[filePath pathComponents] lastObject] retain];
     
     return tempFilePath;
 }
@@ -146,10 +163,13 @@
     
     // Check if it's local
     id draggingSource = [sender draggingSource];
-    if (!draggingSource || ![draggingSource isKindOfClass:[RTImageView class]]) {
-        RTLog(@"RTDndView - draggingEnded() IS NOT LOCAL dragging");
+    NSPasteboard * pboard = [sender draggingPasteboard];
+    
+    if ((!draggingSource || ![draggingSource isKindOfClass:[RTImageView class]]) && [[pboard name] compare:RTPasteBoardName] != NSOrderedSame) {
+        RTLog(@"RTDndView - draggingEnded() IS NOT LOCAL dragging, Dragging Source is %@", draggingSource);
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:RT_NOTIFICATION_END_DROPPING object:self userInfo:[NSDictionary dictionaryWithObject:tempFilePath_ forKey:@"audioFilePath"]];
+        NSDictionary * notificationData = [NSDictionary dictionaryWithObjectsAndKeys:tempFilePath_, @"audioFilePath", origFileName_, @"origFileName", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:RT_NOTIFICATION_END_DROPPING object:self userInfo:notificationData];
     } else {
         RTLog(@"RTDndView - draggingEnded() IS LOCAL dragging");
     }
@@ -258,6 +278,7 @@
         @catch (NSException *e)
         {
             RTLog(@"RTDndView - Cannot get and process dragged object's file path: %@", [e description]);
+            return NO;
         }
         
         return YES;
