@@ -366,7 +366,7 @@
         [self removeFile:outputURL_];
         
         // Export audio
-        AVAssetExportSession * exporter = [[AVAssetExportSession alloc] initWithAsset:avComposition presetName:AVAssetExportPresetAppleM4A];
+        __block AVAssetExportSession * exporter = [[AVAssetExportSession alloc] initWithAsset:avComposition presetName:AVAssetExportPresetAppleM4A];
         exporter.outputURL = outputURL_;
         exporter.outputFileType = AVFileTypeAppleM4A;
         
