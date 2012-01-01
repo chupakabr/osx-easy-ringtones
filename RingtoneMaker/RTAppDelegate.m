@@ -168,6 +168,17 @@
     [self.audioImageView setFileUrl:nil];
     [self.audioImageView setHidden:YES];
     [self.dragMeLabel setHidden:YES];
+    
+    // Set start time to defaults
+    [self.startTimeText setStringValue:[self getTimeString:0.0]];
+    
+    // Set end time to defaults
+    [self.endTimeText setStringValue:[self getTimeString:30.0]];
+    if (audioPlayer_) {
+        if ([audioPlayer_ duration] < 30) {
+            [self.endTimeText setStringValue:[self getTimeString:[audioPlayer_ duration]]];            
+        }
+    }
 }
 
 
@@ -231,11 +242,11 @@
     RTLog(@"RTAppDelegate - Audio file path is '%@'", audioFilePath);
     
     NSURL * newAudioUrl = [NSURL fileURLWithPath:audioFilePath];
-    RTLog(@"RTAppDelegate - New Audio file URL is '%@', ext='%@'", newAudioUrl, [newAudioUrl pathExtension]);  // TODO Strange URL is here    
+    RTLog(@"RTAppDelegate - New Audio file URL is '%@', ext='%@'", newAudioUrl, [newAudioUrl pathExtension]);
     
     // Init new player
     NSError * errors;
-    AVAudioPlayer * newAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:newAudioUrl error:&errors];
+    AVAudioPlayer * newAudioPlayer = [[[AVAudioPlayer alloc] initWithContentsOfURL:newAudioUrl error:&errors] autorelease];
     if (!newAudioPlayer) {
         RTLog(@"RTAppDelegate - Cannot init new AVAudioPlayer! file: '%@'", newAudioUrl);
         [NSException raise:@"RTCannotCreateAudioPlayer" format:[errors description]];
@@ -247,7 +258,7 @@
         [audioPlayer_ stop];
         [audioPlayer_ release];
     }
-    audioPlayer_ = newAudioPlayer;
+    audioPlayer_ = [newAudioPlayer retain];
     
     // Init file paths
     if (audioFileURL_) {
@@ -326,6 +337,17 @@
         NSTimeInterval endPosition = [self getTimeInterval:[self.endTimeText stringValue]];
         RTLog(@"Rip Audio File for interval: startTime(%f) endTime(%f)", startPosition, endPosition);
         
+        // Check times if not out of bounds
+        if (endPosition > [audioPlayer_ duration]) {
+            RTLog(@"WARN Rip Audio: end time if greater that audio duration, %f > %f! Fixing to audio duration", endPosition, [audioPlayer_ duration]);
+            endPosition = [audioPlayer_ duration];
+        }
+        if (startPosition > [audioPlayer_ duration]) {
+            RTLog(@"WARN Rip Audio: start time if greater that audio duration, %f > %f! Fixing to zero", startPosition, [audioPlayer_ duration]);
+            startPosition = 0.0;
+        }
+        NSTimeInterval duration = endPosition - startPosition;
+        
         // Prepare for audio trimming
         RTLog(@"Output Rip file URL: '%@' -> '%@'", audioFileURL_, outputURL_);
         
@@ -333,12 +355,15 @@
         AVURLAsset * audioFileAsset = [AVURLAsset assetWithURL:audioFileURL_];
         
         int32_t timescale = [audioFileAsset duration].timescale;
-        CMTimeRange audioDuration = CMTimeRangeMake(CMTimeMakeWithSeconds(startPosition, timescale), CMTimeMakeWithSeconds(endPosition-startPosition, timescale));
+        CMTimeRange audioDuration = CMTimeRangeMake(CMTimeMakeWithSeconds(startPosition, timescale), CMTimeMakeWithSeconds(duration, timescale));
         
         NSError * errors;
         if (![avComposition insertTimeRange:audioDuration ofAsset:audioFileAsset atTime:kCMTimeZero error:&errors]) {
             [NSException raise:@"RTCannotRipAudioFile" format:[errors description]];
         }
+        
+        // Check if the file already exists and remove it
+        [self removeFile:outputURL_];
         
         // Export audio
         AVAssetExportSession * exporter = [[AVAssetExportSession alloc] initWithAsset:avComposition presetName:AVAssetExportPresetAppleM4A];
@@ -350,9 +375,9 @@
         // ...with complete handler
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             RTLog(@"WOW! Audio file ripping completed successfully!");
+            [exporter release];
             [self performSelectorOnMainThread:@selector(enableControls:) withObject:nil waitUntilDone:YES];
             [self performSelectorOnMainThread:@selector(audioTrimmed:) withObject:nil waitUntilDone:YES];
-            [exporter release];
         }];
     }
     @catch (NSException *e)
