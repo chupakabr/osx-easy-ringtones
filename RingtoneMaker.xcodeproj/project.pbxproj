@@ -14,10 +14,10 @@
 		3E1BC2D914AC710300A67A34 /* RTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1BC2D814AC710300A67A34 /* RTAppDelegate.m */; };
 		3E1BC2DC14AC710300A67A34 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E1BC2DA14AC710300A67A34 /* MainMenu.xib */; };
 		3E1BC2E414AC734D00A67A34 /* RTDndView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1BC2E314AC734D00A67A34 /* RTDndView.m */; };
-		3E48313C14B0B8810036C397 /* icon_512.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E48313B14B0B8810036C397 /* icon_512.png */; };
 		3E4AD24914AE090B00D79465 /* audio-file-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E4AD24814AE090B00D79465 /* audio-file-icon.png */; };
 		3E4AD24D14AE0A8100D79465 /* RTImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4AD24C14AE0A8100D79465 /* RTImageView.m */; };
 		3E4AD25414AE3AB800D79465 /* play-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E4AD25314AE3AB800D79465 /* play-button.png */; };
+		3E67C22114B0C8D0002216AF /* icon_512.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E67C22014B0C8D0002216AF /* icon_512.png */; };
 		3E9DE8BD14ADF35B00855889 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9DE8BC14ADF35B00855889 /* CoreMedia.framework */; };
 		3EE2356514ACD81200704C2E /* RTSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE2356414ACD81200704C2E /* RTSlider.m */; };
 		3EF1003114ACAE0E00CEC17A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF1003014ACAE0E00CEC17A /* AudioToolbox.framework */; };
@@ -41,11 +41,11 @@
 		3E1BC2E214AC734D00A67A34 /* RTDndView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTDndView.h; sourceTree = "<group>"; };
 		3E1BC2E314AC734D00A67A34 /* RTDndView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTDndView.m; sourceTree = "<group>"; };
 		3E1BC2E514AC75C700A67A34 /* RTLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTLog.h; sourceTree = "<group>"; };
-		3E48313B14B0B8810036C397 /* icon_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_512.png; sourceTree = "<group>"; };
 		3E4AD24814AE090B00D79465 /* audio-file-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio-file-icon.png"; sourceTree = "<group>"; };
 		3E4AD24B14AE0A8100D79465 /* RTImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTImageView.h; sourceTree = "<group>"; };
 		3E4AD24C14AE0A8100D79465 /* RTImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTImageView.m; sourceTree = "<group>"; };
 		3E4AD25314AE3AB800D79465 /* play-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-button.png"; sourceTree = "<group>"; };
+		3E67C22014B0C8D0002216AF /* icon_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_512.png; sourceTree = "<group>"; };
 		3E9DE8BC14ADF35B00855889 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3EE2356314ACD81200704C2E /* RTSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSlider.h; sourceTree = "<group>"; };
 		3EE2356414ACD81200704C2E /* RTSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSlider.m; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 		3E1BC2B614AC710200A67A34 = {
 			isa = PBXGroup;
 			children = (
-				3E48313B14B0B8810036C397 /* icon_512.png */,
+				3E67C22014B0C8D0002216AF /* icon_512.png */,
 				3E1BC2CB14AC710300A67A34 /* RingtoneMaker */,
 				3E1BC2C414AC710300A67A34 /* Frameworks */,
 				3E1BC2C214AC710300A67A34 /* Products */,
@@ -206,7 +206,7 @@
 				3E1BC2DC14AC710300A67A34 /* MainMenu.xib in Resources */,
 				3E4AD24914AE090B00D79465 /* audio-file-icon.png in Resources */,
 				3E4AD25414AE3AB800D79465 /* play-button.png in Resources */,
-				3E48313C14B0B8810036C397 /* icon_512.png in Resources */,
+				3E67C22114B0C8D0002216AF /* icon_512.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +303,7 @@
 		3E1BC2E014AC710300A67A34 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RingtoneMaker/RingtoneMaker-Prefix.pch";
 				INFOPLIST_FILE = "RingtoneMaker/RingtoneMaker-Info.plist";
@@ -315,6 +316,7 @@
 		3E1BC2E114AC710300A67A34 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RingtoneMaker/RingtoneMaker-Prefix.pch";
 				INFOPLIST_FILE = "RingtoneMaker/RingtoneMaker-Info.plist";

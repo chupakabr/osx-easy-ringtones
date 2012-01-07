@@ -19,6 +19,22 @@
     AVAudioPlayer * audioPlayer_;
     NSURL * audioFileURL_;
     NSURL * outputURL_;
+    
+    //props
+    IBOutlet NSWindow * _window;
+    IBOutlet RTDndView * _dndView;
+    IBOutlet NSButton * _playButton;
+    IBOutlet NSButton * _play2Button;
+    IBOutlet NSButton * _ripButton;
+    IBOutlet NSButton * _startButton;
+    IBOutlet NSButton * _endButton;
+    IBOutlet NSTextField * _startTimeText;
+    IBOutlet NSTextField * _endTimeText;
+    IBOutlet NSProgressIndicator * _progressIndicator;
+    IBOutlet RTSlider * _audioSlider;
+    IBOutlet NSTextField * _currentTimeLabel;
+    IBOutlet RTImageView * _audioImageView;
+    IBOutlet NSTextField * _dragMeLabel;
 }
 
 @property (assign) IBOutlet NSWindow * window;

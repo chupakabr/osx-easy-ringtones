@@ -12,6 +12,11 @@
 #define RTPasteBoardName @"RTPasteBoard"
 
 @interface RTImageView : NSImageView<NSDraggingSource>
+{
+@private
+    //props
+    NSURL * _fileUrl;
+}
 
 @property (strong) NSURL * fileUrl;
 
