@@ -68,7 +68,7 @@
 							<array class="NSMutableArray" key="NSMenuItems">
 								<object class="NSMenuItem" id="238522557">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">About Mac Ringtones</string>
+									<string key="NSTitle">Информация о Mac Ringtones</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -87,7 +87,7 @@
 								</object>
 								<object class="NSMenuItem" id="755159360">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">Hide Mac Ringtones</string>
+									<string key="NSTitle">Скрыть Mac Ringtones</string>
 									<string key="NSKeyEquiv">h</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -96,7 +96,7 @@
 								</object>
 								<object class="NSMenuItem" id="342932134">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">Hide Others</string>
+									<string key="NSTitle">Скрыть Все</string>
 									<string key="NSKeyEquiv">h</string>
 									<int key="NSKeyEquivModMask">1572864</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -105,7 +105,7 @@
 								</object>
 								<object class="NSMenuItem" id="908899353">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">Show All</string>
+									<string key="NSTitle">Показать Все</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -125,7 +125,7 @@
 								</object>
 								<object class="NSMenuItem" id="632727374">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">Quit Mac Ringtones</string>
+									<string key="NSTitle">Выйти из Mac Ringtones</string>
 									<string key="NSKeyEquiv">q</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -138,18 +138,18 @@
 					</object>
 					<object class="NSMenuItem" id="448692316">
 						<reference key="NSMenu" ref="649796088"/>
-						<string key="NSTitle">Help</string>
+						<string key="NSTitle">Помощь</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="35465992"/>
 						<reference key="NSMixedImage" ref="502551668"/>
 						<string key="NSAction">submenuAction:</string>
 						<object class="NSMenu" key="NSSubmenu" id="992780483">
-							<string key="NSTitle">Help</string>
+							<string key="NSTitle">Помощь</string>
 							<array class="NSMutableArray" key="NSMenuItems">
 								<object class="NSMenuItem" id="105068016">
 									<reference key="NSMenu" ref="992780483"/>
-									<string key="NSTitle">Mac Ringtones Help</string>
+									<string key="NSTitle">Помощь по Mac Ringtones</string>
 									<string key="NSKeyEquiv">?</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -185,7 +185,7 @@
 								<object class="NSButton" id="4264459">
 									<reference key="NSNextResponder" ref="915816117"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{275, 11}, {25, 21}}</string>
+									<string key="NSFrame">{{290, 11}, {25, 21}}</string>
 									<reference key="NSSuperview" ref="915816117"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="1811053"/>
@@ -218,7 +218,7 @@
 								<object class="NSTextField" id="728566404">
 									<reference key="NSNextResponder" ref="915816117"/>
 									<int key="NSvFlags">-2147483380</int>
-									<string key="NSFrame">{{417, 107}, {46, 14}}</string>
+									<string key="NSFrame">{{419, 109}, {44, 14}}</string>
 									<reference key="NSSuperview" ref="915816117"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="65938732"/>
@@ -228,7 +228,7 @@
 									<object class="NSTextFieldCell" key="NSCell" id="491901726">
 										<int key="NSCellFlags">68288064</int>
 										<int key="NSCellFlags2">4195328</int>
-										<string key="NSContents">Drag it</string>
+										<string key="NSContents">Аудио</string>
 										<object class="NSFont" key="NSSupport">
 											<string key="NSName">LucidaGrande</string>
 											<double key="NSSize">11</double>
@@ -292,7 +292,7 @@
 								<object class="NSBox" id="79831874">
 									<reference key="NSNextResponder" ref="915816117"/>
 									<int key="NSvFlags">12</int>
-									<string key="NSFrame">{{184, 20}, {5, 1}}</string>
+									<string key="NSFrame">{{199, 20}, {5, 1}}</string>
 									<reference key="NSSuperview" ref="915816117"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="618958925"/>
@@ -330,7 +330,7 @@
 								<object class="NSButton" id="204742727">
 									<reference key="NSNextResponder" ref="915816117"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{193, 61}, {78, 19}}</string>
+									<string key="NSFrame">{{208, 61}, {78, 19}}</string>
 									<reference key="NSSuperview" ref="915816117"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="561145596"/>
@@ -340,7 +340,7 @@
 									<object class="NSButtonCell" key="NSCell" id="536428767">
 										<int key="NSCellFlags">-1543373312</int>
 										<int key="NSCellFlags2">134217728</int>
-										<string key="NSContents">Set end</string>
+										<string key="NSContents">Конец</string>
 										<object class="NSFont" key="NSSupport" id="773768372">
 											<string key="NSName">LucidaGrande</string>
 											<double key="NSSize">12</double>
@@ -359,7 +359,7 @@
 								<object class="NSButton" id="487622200">
 									<reference key="NSNextResponder" ref="915816117"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{102, 61}, {78, 19}}</string>
+									<string key="NSFrame">{{117, 61}, {78, 19}}</string>
 									<reference key="NSSuperview" ref="915816117"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="204742727"/>
@@ -369,7 +369,7 @@
 									<object class="NSButtonCell" key="NSCell" id="275223886">
 										<int key="NSCellFlags">-1543373312</int>
 										<int key="NSCellFlags2">134217728</int>
-										<string key="NSContents">Set start</string>
+										<string key="NSContents">Начало</string>
 										<reference key="NSSupport" ref="773768372"/>
 										<string key="NSCellIdentifier">_NS:2434</string>
 										<reference key="NSControlView" ref="487622200"/>
@@ -384,7 +384,7 @@
 								<object class="NSBox" id="1018287971">
 									<reference key="NSNextResponder" ref="915816117"/>
 									<int key="NSvFlags">12</int>
-									<string key="NSFrame">{{89, 62}, {5, 18}}</string>
+									<string key="NSFrame">{{104, 62}, {5, 18}}</string>
 									<reference key="NSSuperview" ref="915816117"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="487622200"/>
@@ -410,7 +410,7 @@
 								<object class="NSButton" id="765942516">
 									<reference key="NSNextResponder" ref="915816117"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{20, 11}, {60, 19}}</string>
+									<string key="NSFrame">{{20, 11}, {75, 19}}</string>
 									<reference key="NSSuperview" ref="915816117"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="1069056634"/>
@@ -420,7 +420,7 @@
 									<object class="NSButtonCell" key="NSCell" id="277131130">
 										<int key="NSCellFlags">-1543373312</int>
 										<int key="NSCellFlags2">134217728</int>
-										<string key="NSContents">Make!</string>
+										<string key="NSContents">Создать!</string>
 										<reference key="NSSupport" ref="773768372"/>
 										<string key="NSCellIdentifier">_NS:2434</string>
 										<reference key="NSControlView" ref="765942516"/>
@@ -435,7 +435,7 @@
 								<object class="NSTextField" id="1069056634">
 									<reference key="NSNextResponder" ref="915816117"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{102, 10}, {78, 22}}</string>
+									<string key="NSFrame">{{117, 10}, {78, 22}}</string>
 									<reference key="NSSuperview" ref="915816117"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="79831874"/>
@@ -462,7 +462,7 @@
 								<object class="NSTextField" id="618958925">
 									<reference key="NSNextResponder" ref="915816117"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{193, 10}, {78, 22}}</string>
+									<string key="NSFrame">{{208, 10}, {78, 22}}</string>
 									<reference key="NSSuperview" ref="915816117"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="4264459"/>
@@ -531,7 +531,7 @@
 								<object class="NSButton" id="65938732">
 									<reference key="NSNextResponder" ref="915816117"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{20, 61}, {60, 19}}</string>
+									<string key="NSFrame">{{20, 61}, {75, 19}}</string>
 									<reference key="NSSuperview" ref="915816117"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="1018287971"/>
@@ -541,7 +541,7 @@
 									<object class="NSButtonCell" key="NSCell" id="132827799">
 										<int key="NSCellFlags">-1543373312</int>
 										<int key="NSCellFlags2">134217728</int>
-										<string key="NSContents">Play</string>
+										<string key="NSContents">Старт</string>
 										<reference key="NSSupport" ref="773768372"/>
 										<string key="NSCellIdentifier">_NS:2434</string>
 										<reference key="NSControlView" ref="65938732"/>
@@ -569,7 +569,7 @@
 								<object class="NSTextField" id="839628559">
 									<reference key="NSNextResponder" ref="915816117"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{87, 112}, {307, 28}}</string>
+									<string key="NSFrame">{{68, 116}, {347, 25}}</string>
 									<reference key="NSSuperview" ref="915816117"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="728566404"/>
@@ -579,10 +579,10 @@
 									<object class="NSTextFieldCell" key="NSCell" id="254498438">
 										<int key="NSCellFlags">68288064</int>
 										<int key="NSCellFlags2">272630784</int>
-										<string key="NSContents">Drop your audio file here</string>
+										<string key="NSContents">Перетащите аудио файл сюда</string>
 										<object class="NSFont" key="NSSupport">
 											<string key="NSName">LucidaGrande-Bold</string>
-											<double key="NSSize">23</double>
+											<double key="NSSize">21</double>
 											<int key="NSfFlags">16</int>
 										</object>
 										<string key="NSCellIdentifier">_NS:3944</string>
@@ -995,18 +995,18 @@
 							<reference ref="847152457"/>
 							<reference ref="636282265"/>
 							<reference ref="1811053"/>
-							<reference ref="839628559"/>
 							<reference ref="65938732"/>
 							<reference ref="765942516"/>
-							<reference ref="79831874"/>
+							<reference ref="561145596"/>
+							<reference ref="839628559"/>
 							<reference ref="618958925"/>
 							<reference ref="1069056634"/>
+							<reference ref="1018287971"/>
 							<reference ref="487622200"/>
 							<reference ref="204742727"/>
-							<reference ref="1018287971"/>
-							<reference ref="561145596"/>
-							<reference ref="728566404"/>
+							<reference ref="79831874"/>
 							<reference ref="4264459"/>
+							<reference ref="728566404"/>
 						</array>
 						<reference key="parent" ref="439893737"/>
 						<string key="objectName">DnD View</string>
@@ -1221,7 +1221,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="65938732"/>
-						<string key="toolTip">Start / Stop audio playing</string>
+						<string key="toolTip">Начать / Остановить проигрывание адио композиции</string>
 					</object>
 				</object>
 				<string key="544.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1242,7 +1242,7 @@
 					<object class="IBToolTipAttribute" key="ToolTip">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="618958925"/>
-						<string key="toolTip">Ringtone end time</string>
+						<string key="toolTip">Время завершения рингтона</string>
 					</object>
 				</dictionary>
 				<string key="577.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1256,7 +1256,7 @@
 					<object class="IBToolTipAttribute" key="ToolTip">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="1069056634"/>
-						<string key="toolTip">Ringtone start time</string>
+						<string key="toolTip">Время начала рингтона</string>
 					</object>
 				</dictionary>
 				<string key="579.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1267,7 +1267,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="765942516"/>
-						<string key="toolTip">Make a ringtone</string>
+						<string key="toolTip">Создать рингтон</string>
 					</object>
 				</object>
 				<string key="583.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1278,7 +1278,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="487622200"/>
-						<string key="toolTip">Ringtone start position</string>
+						<string key="toolTip">Установить время начала рингтона</string>
 					</object>
 				</object>
 				<string key="606.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1288,7 +1288,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="204742727"/>
-						<string key="toolTip">Ringtone end position</string>
+						<string key="toolTip">Установить время завершения рингтона</string>
 					</object>
 				</object>
 				<string key="608.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1304,7 +1304,7 @@
 					<object class="IBToolTipAttribute" key="ToolTip">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="561145596"/>
-						<string key="toolTip">Drag me to iTunes or Finder</string>
+						<string key="toolTip">Перетащите картинку в iTunes или на Рабочий Стол</string>
 					</object>
 				</dictionary>
 				<string key="618.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1314,7 +1314,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="728566404"/>
-						<string key="toolTip">Drag the image below to iTunes or Finder</string>
+						<string key="toolTip">Перетащите картинку в iTunes или на Рабочий Стол</string>
 					</object>
 				</object>
 				<string key="625.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1324,7 +1324,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="4264459"/>
-						<string key="toolTip">Listen to ringtone from its start time</string>
+						<string key="toolTip">Прослушать рингтон с установленной начальной точки</string>
 					</object>
 				</object>
 				<string key="630.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>

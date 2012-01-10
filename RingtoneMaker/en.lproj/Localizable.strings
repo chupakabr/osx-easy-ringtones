@@ -1,0 +1,8 @@
+/* Localized versions of Info.plist keys */
+
+"Play" = "Play";
+"Stop" = "Stop";
+"Cannot play audio" = "Cannot play audio";
+"Cannot play trimmed audio" = "Cannot play ringtone";
+"Cannot trim audio" = "Cannot make a ringtone";
+"Invalid audio file" = "Invalid audio file";

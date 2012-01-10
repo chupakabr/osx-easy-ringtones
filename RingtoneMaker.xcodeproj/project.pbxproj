@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3E1BC2C614AC710300A67A34 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BC2C514AC710300A67A34 /* Cocoa.framework */; };
-		3E1BC2D014AC710300A67A34 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3E1BC2CE14AC710300A67A34 /* InfoPlist.strings */; };
+		3E1BC2D014AC710300A67A34 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3E1BC2CE14AC710300A67A34 /* Localizable.strings */; };
 		3E1BC2D214AC710300A67A34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1BC2D114AC710300A67A34 /* main.m */; };
 		3E1BC2D614AC710300A67A34 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3E1BC2D414AC710300A67A34 /* Credits.rtf */; };
 		3E1BC2D914AC710300A67A34 /* RTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1BC2D814AC710300A67A34 /* RTAppDelegate.m */; };
@@ -31,7 +31,7 @@
 		3E1BC2C914AC710300A67A34 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3E1BC2CA14AC710300A67A34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3E1BC2CD14AC710300A67A34 /* RingtoneMaker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RingtoneMaker-Info.plist"; sourceTree = "<group>"; };
-		3E1BC2CF14AC710300A67A34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3E1BC2CF14AC710300A67A34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3E1BC2D114AC710300A67A34 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3E1BC2D314AC710300A67A34 /* RingtoneMaker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RingtoneMaker-Prefix.pch"; sourceTree = "<group>"; };
 		3E1BC2D514AC710300A67A34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
@@ -49,6 +49,9 @@
 		3E9DE8BC14ADF35B00855889 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3EE2356314ACD81200704C2E /* RTSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSlider.h; sourceTree = "<group>"; };
 		3EE2356414ACD81200704C2E /* RTSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSlider.m; sourceTree = "<group>"; };
+		3EEDF54C14BCC1E900D62825 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		3EEDF54D14BCC1F600D62825 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3EEDF54E14BCC1FE00D62825 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ru; path = ru.lproj/Credits.rtf; sourceTree = "<group>"; };
 		3EF1002D14AC9B9300CEC17A /* RTNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTNotifications.h; sourceTree = "<group>"; };
 		3EF1003014ACAE0E00CEC17A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		3EF1003214ACB41B00CEC17A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -116,7 +119,6 @@
 				3EF1002D14AC9B9300CEC17A /* RTNotifications.h */,
 				3E1BC2D714AC710300A67A34 /* RTAppDelegate.h */,
 				3E1BC2D814AC710300A67A34 /* RTAppDelegate.m */,
-				3E1BC2DA14AC710300A67A34 /* MainMenu.xib */,
 				3E1BC2E214AC734D00A67A34 /* RTDndView.h */,
 				3E1BC2E314AC734D00A67A34 /* RTDndView.m */,
 				3E4AD24B14AE0A8100D79465 /* RTImageView.h */,
@@ -132,8 +134,9 @@
 		3E1BC2CC14AC710300A67A34 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3E1BC2DA14AC710300A67A34 /* MainMenu.xib */,
 				3E1BC2CD14AC710300A67A34 /* RingtoneMaker-Info.plist */,
-				3E1BC2CE14AC710300A67A34 /* InfoPlist.strings */,
+				3E1BC2CE14AC710300A67A34 /* Localizable.strings */,
 				3E1BC2D114AC710300A67A34 /* main.m */,
 				3E1BC2D314AC710300A67A34 /* RingtoneMaker-Prefix.pch */,
 				3E1BC2D414AC710300A67A34 /* Credits.rtf */,
@@ -185,6 +188,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ru,
 			);
 			mainGroup = 3E1BC2B614AC710200A67A34;
 			productRefGroup = 3E1BC2C214AC710300A67A34 /* Products */;
@@ -201,7 +205,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E1BC2D014AC710300A67A34 /* InfoPlist.strings in Resources */,
+				3E1BC2D014AC710300A67A34 /* Localizable.strings in Resources */,
 				3E1BC2D614AC710300A67A34 /* Credits.rtf in Resources */,
 				3E1BC2DC14AC710300A67A34 /* MainMenu.xib in Resources */,
 				3E4AD24914AE090B00D79465 /* audio-file-icon.png in Resources */,
@@ -228,18 +232,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3E1BC2CE14AC710300A67A34 /* InfoPlist.strings */ = {
+		3E1BC2CE14AC710300A67A34 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				3E1BC2CF14AC710300A67A34 /* en */,
+				3EEDF54D14BCC1F600D62825 /* ru */,
 			);
-			name = InfoPlist.strings;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		3E1BC2D414AC710300A67A34 /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
 				3E1BC2D514AC710300A67A34 /* en */,
+				3EEDF54E14BCC1FE00D62825 /* ru */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -248,6 +254,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3E1BC2DB14AC710300A67A34 /* en */,
+				3EEDF54C14BCC1E900D62825 /* ru */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";

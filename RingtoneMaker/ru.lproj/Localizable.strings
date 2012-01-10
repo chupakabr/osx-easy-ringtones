@@ -1,0 +1,8 @@
+/* Localized versions of Info.plist keys */
+
+"Play" = "Старт";
+"Stop" = "Стоп";
+"Cannot play audio" = "Не удалось воспроизвести аудио файл";
+"Cannot play trimmed audio" = "Не удалось воспроизвести аудио файл (рингтон)";
+"Cannot trim audio" = "Не удалось создать рингтон";
+"Invalid audio file" = "Неудалось распознать выбранный аудио файл";

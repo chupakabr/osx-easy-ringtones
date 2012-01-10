@@ -11,8 +11,8 @@
 #import "RTNotifications.h"
 
 
-#define RT_BUTTON_PLAY @"Play"
-#define RT_BUTTON_STOP @"Stop"
+#define RT_BUTTON_PLAY NSLocalizedString(@"Play", nil)
+#define RT_BUTTON_STOP NSLocalizedString(@"Stop", nil)
 
 
 @interface RTAppDelegate()
@@ -202,7 +202,7 @@
     @catch (NSException *e)
     {
         RTLog(@"Cannot play/stop audio player: %@", [e description]);
-        [[NSAlert alertWithMessageText:@"Cannot play audio" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
+        [[NSAlert alertWithMessageText:NSLocalizedString(@"Cannot play audio", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
     }
 }
 
@@ -223,7 +223,7 @@
     @catch (NSException *e)
     {
         RTLog(@"Cannot play/stop trimmed audio player: %@", [e description]);
-        [[NSAlert alertWithMessageText:@"Cannot play trimmed audio" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
+        [[NSAlert alertWithMessageText:NSLocalizedString(@"Cannot play trimmed audio", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
     }    
 }
 
@@ -383,7 +383,7 @@
     @catch (NSException *e)
     {
         RTLog(@"ERR! Cannot Rip audio composition: %@", [e description]);
-        [[NSAlert alertWithMessageText:@"Cannot trim audio" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
+        [[NSAlert alertWithMessageText:NSLocalizedString(@"Cannot trim audio", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
         [self performSelectorOnMainThread:@selector(enableControls:) withObject:nil waitUntilDone:YES];
     }
 }
@@ -508,7 +508,7 @@
     {
         RTLog(@"ERR! Cannot drop audio file: '%@'", [e description]);
         [self removeFileAtPath:audioFilePath];
-        [[NSAlert alertWithMessageText:@"Invalid audio file" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
+        [[NSAlert alertWithMessageText:NSLocalizedString(@"Invalid audio file", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
     }
     @finally
     {
