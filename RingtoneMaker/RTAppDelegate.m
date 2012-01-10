@@ -376,6 +376,7 @@
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             RTLog(@"WOW! Audio file ripping completed successfully!");
             [exporter release];
+            
             [self performSelectorOnMainThread:@selector(enableControls:) withObject:nil waitUntilDone:YES];
             [self performSelectorOnMainThread:@selector(audioTrimmed:) withObject:nil waitUntilDone:YES];
         }];

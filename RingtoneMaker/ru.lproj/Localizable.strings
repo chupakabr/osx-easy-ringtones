@@ -1,6 +1,6 @@
 /* Localized versions of Info.plist keys */
 
-"Play" = "Старт";
+"Play" = "Играть";
 "Stop" = "Стоп";
 "Cannot play audio" = "Не удалось воспроизвести аудио файл";
 "Cannot play trimmed audio" = "Не удалось воспроизвести аудио файл (рингтон)";

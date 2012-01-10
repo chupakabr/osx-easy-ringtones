@@ -541,7 +541,7 @@
 									<object class="NSButtonCell" key="NSCell" id="132827799">
 										<int key="NSCellFlags">-1543373312</int>
 										<int key="NSCellFlags2">134217728</int>
-										<string key="NSContents">Старт</string>
+										<string key="NSContents">Играть</string>
 										<reference key="NSSupport" ref="773768372"/>
 										<string key="NSCellIdentifier">_NS:2434</string>
 										<reference key="NSControlView" ref="65938732"/>
