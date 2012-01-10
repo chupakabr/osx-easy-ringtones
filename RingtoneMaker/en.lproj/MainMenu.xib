@@ -1557,7 +1557,7 @@
 									<object class="NSButtonCell" key="NSCell" id="277131130">
 										<int key="NSCellFlags">-1543373312</int>
 										<int key="NSCellFlags2">134217728</int>
-										<string key="NSContents">Rip</string>
+										<string key="NSContents">Make!</string>
 										<reference key="NSSupport" ref="773768372"/>
 										<string key="NSCellIdentifier">_NS:2434</string>
 										<reference key="NSControlView" ref="765942516"/>
@@ -3952,6 +3952,14 @@
 				<string key="538.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="539.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="540.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSMutableDictionary" key="544.IBAttributePlaceholdersKey">
+					<string key="NS.key.0">ToolTip</string>
+					<object class="IBToolTipAttribute" key="NS.object.0">
+						<string key="name">ToolTip</string>
+						<reference key="object" ref="65938732"/>
+						<string key="toolTip">Start / Stop audio playing</string>
+					</object>
+				</object>
 				<string key="544.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="545.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="548.CustomClassName">RTSlider</string>
@@ -3970,7 +3978,7 @@
 					<object class="IBToolTipAttribute" key="ToolTip">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="618958925"/>
-						<string key="toolTip">End time</string>
+						<string key="toolTip">Ringtone end time</string>
 					</object>
 				</dictionary>
 				<string key="577.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3984,17 +3992,41 @@
 					<object class="IBToolTipAttribute" key="ToolTip">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="1069056634"/>
-						<string key="toolTip">Start time</string>
+						<string key="toolTip">Ringtone start time</string>
 					</object>
 				</dictionary>
 				<string key="579.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="580.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSMutableDictionary" key="583.IBAttributePlaceholdersKey">
+					<string key="NS.key.0">ToolTip</string>
+					<object class="IBToolTipAttribute" key="NS.object.0">
+						<string key="name">ToolTip</string>
+						<reference key="object" ref="765942516"/>
+						<string key="toolTip">Make a ringtone</string>
+					</object>
+				</object>
 				<string key="583.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="584.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="603.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSMutableDictionary" key="606.IBAttributePlaceholdersKey">
+					<string key="NS.key.0">ToolTip</string>
+					<object class="IBToolTipAttribute" key="NS.object.0">
+						<string key="name">ToolTip</string>
+						<reference key="object" ref="487622200"/>
+						<string key="toolTip">Ringtone start position</string>
+					</object>
+				</object>
 				<string key="606.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="607.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSMutableDictionary" key="608.IBAttributePlaceholdersKey">
+					<string key="NS.key.0">ToolTip</string>
+					<object class="IBToolTipAttribute" key="NS.object.0">
+						<string key="name">ToolTip</string>
+						<reference key="object" ref="204742727"/>
+						<string key="toolTip">Ringtone end position</string>
+					</object>
+				</object>
 				<string key="608.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="609.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="615.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4008,13 +4040,29 @@
 					<object class="IBToolTipAttribute" key="ToolTip">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="561145596"/>
-						<string key="toolTip">Drag me</string>
+						<string key="toolTip">Drag me to iTunes or Finder</string>
 					</object>
 				</dictionary>
 				<string key="618.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="619.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSMutableDictionary" key="625.IBAttributePlaceholdersKey">
+					<string key="NS.key.0">ToolTip</string>
+					<object class="IBToolTipAttribute" key="NS.object.0">
+						<string key="name">ToolTip</string>
+						<reference key="object" ref="728566404"/>
+						<string key="toolTip">Drag the image below to iTunes or Finder</string>
+					</object>
+				</object>
 				<string key="625.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="626.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSMutableDictionary" key="630.IBAttributePlaceholdersKey">
+					<string key="NS.key.0">ToolTip</string>
+					<object class="IBToolTipAttribute" key="NS.object.0">
+						<string key="name">ToolTip</string>
+						<reference key="object" ref="4264459"/>
+						<string key="toolTip">Listen to ringtone from its start time</string>
+					</object>
+				</object>
 				<string key="630.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="631.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4116,6 +4164,20 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="_audioImageView">RTImageView</string>
+						<string key="_audioSlider">RTSlider</string>
+						<string key="_currentTimeLabel">NSTextField</string>
+						<string key="_dndView">RTDndView</string>
+						<string key="_dragMeLabel">NSTextField</string>
+						<string key="_endButton">NSButton</string>
+						<string key="_endTimeText">NSTextField</string>
+						<string key="_play2Button">NSButton</string>
+						<string key="_playButton">NSButton</string>
+						<string key="_progressIndicator">NSProgressIndicator</string>
+						<string key="_ripButton">NSButton</string>
+						<string key="_startButton">NSButton</string>
+						<string key="_startTimeText">NSTextField</string>
+						<string key="_window">NSWindow</string>
 						<string key="audioImageView">RTImageView</string>
 						<string key="audioSlider">RTSlider</string>
 						<string key="currentTimeLabel">NSTextField</string>
@@ -4132,6 +4194,62 @@
 						<string key="window">NSWindow</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="_audioImageView">
+							<string key="name">_audioImageView</string>
+							<string key="candidateClassName">RTImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_audioSlider">
+							<string key="name">_audioSlider</string>
+							<string key="candidateClassName">RTSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_currentTimeLabel">
+							<string key="name">_currentTimeLabel</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_dndView">
+							<string key="name">_dndView</string>
+							<string key="candidateClassName">RTDndView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_dragMeLabel">
+							<string key="name">_dragMeLabel</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_endButton">
+							<string key="name">_endButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_endTimeText">
+							<string key="name">_endTimeText</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_play2Button">
+							<string key="name">_play2Button</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_playButton">
+							<string key="name">_playButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_progressIndicator">
+							<string key="name">_progressIndicator</string>
+							<string key="candidateClassName">NSProgressIndicator</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_ripButton">
+							<string key="name">_ripButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_startButton">
+							<string key="name">_startButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_startTimeText">
+							<string key="name">_startTimeText</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_window">
+							<string key="name">_window</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="audioImageView">
 							<string key="name">audioImageView</string>
 							<string key="candidateClassName">RTImageView</string>
