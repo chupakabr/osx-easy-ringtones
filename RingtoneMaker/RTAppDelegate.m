@@ -367,7 +367,7 @@
         
         // Export audio
         __block AVAssetExportSession * exporter = [[AVAssetExportSession alloc] initWithAsset:avComposition presetName:AVAssetExportPresetAppleM4A];
-        exporter.outputURL = outputURL_;
+        exporter.outputURL = [[outputURL_ copy] autorelease];
         exporter.outputFileType = AVFileTypeAppleM4A;
         
         RTLog(@"Supported exporting types: %@", [exporter supportedFileTypes]);
@@ -375,8 +375,11 @@
         // ...with complete handler
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             RTLog(@"WOW! Audio file ripping completed successfully!");
+            
+            // Cleanup exporter
             [exporter release];
             
+            // Enable UI
             [self performSelectorOnMainThread:@selector(enableControls:) withObject:nil waitUntilDone:YES];
             [self performSelectorOnMainThread:@selector(audioTrimmed:) withObject:nil waitUntilDone:YES];
         }];

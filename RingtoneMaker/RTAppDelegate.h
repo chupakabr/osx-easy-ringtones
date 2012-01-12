@@ -35,6 +35,7 @@
     IBOutlet NSTextField * _currentTimeLabel;
     IBOutlet RTImageView * _audioImageView;
     IBOutlet NSTextField * _dragMeLabel;
+    
 }
 
 @property (assign) IBOutlet NSWindow * window;

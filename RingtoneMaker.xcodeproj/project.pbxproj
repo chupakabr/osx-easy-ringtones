@@ -17,15 +17,15 @@
 		3E4AD24914AE090B00D79465 /* audio-file-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E4AD24814AE090B00D79465 /* audio-file-icon.png */; };
 		3E4AD24D14AE0A8100D79465 /* RTImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4AD24C14AE0A8100D79465 /* RTImageView.m */; };
 		3E4AD25414AE3AB800D79465 /* play-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E4AD25314AE3AB800D79465 /* play-button.png */; };
-		3E67C22114B0C8D0002216AF /* icon_512.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E67C22014B0C8D0002216AF /* icon_512.png */; };
 		3E9DE8BD14ADF35B00855889 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9DE8BC14ADF35B00855889 /* CoreMedia.framework */; };
 		3EE2356514ACD81200704C2E /* RTSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE2356414ACD81200704C2E /* RTSlider.m */; };
+		3EE6C84B14BEE90600EDA668 /* default.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3EE6C84A14BEE90600EDA668 /* default.icns */; };
 		3EF1003114ACAE0E00CEC17A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF1003014ACAE0E00CEC17A /* AudioToolbox.framework */; };
 		3EF1003314ACB41B00CEC17A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF1003214ACB41B00CEC17A /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3E1BC2C114AC710300A67A34 /* RingtoneMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RingtoneMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E1BC2C114AC710300A67A34 /* RingtoneMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = RingtoneMaker.app; path = EasyRingtones.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E1BC2C514AC710300A67A34 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3E1BC2C814AC710300A67A34 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		3E1BC2C914AC710300A67A34 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -45,10 +45,10 @@
 		3E4AD24B14AE0A8100D79465 /* RTImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTImageView.h; sourceTree = "<group>"; };
 		3E4AD24C14AE0A8100D79465 /* RTImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTImageView.m; sourceTree = "<group>"; };
 		3E4AD25314AE3AB800D79465 /* play-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-button.png"; sourceTree = "<group>"; };
-		3E67C22014B0C8D0002216AF /* icon_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_512.png; sourceTree = "<group>"; };
 		3E9DE8BC14ADF35B00855889 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3EE2356314ACD81200704C2E /* RTSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSlider.h; sourceTree = "<group>"; };
 		3EE2356414ACD81200704C2E /* RTSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSlider.m; sourceTree = "<group>"; };
+		3EE6C84A14BEE90600EDA668 /* default.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = default.icns; sourceTree = "<group>"; };
 		3EEDF54C14BCC1E900D62825 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3EEDF54D14BCC1F600D62825 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3EEDF54E14BCC1FE00D62825 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ru; path = ru.lproj/Credits.rtf; sourceTree = "<group>"; };
@@ -75,7 +75,6 @@
 		3E1BC2B614AC710200A67A34 = {
 			isa = PBXGroup;
 			children = (
-				3E67C22014B0C8D0002216AF /* icon_512.png */,
 				3E1BC2CB14AC710300A67A34 /* RingtoneMaker */,
 				3E1BC2C414AC710300A67A34 /* Frameworks */,
 				3E1BC2C214AC710300A67A34 /* Products */,
@@ -134,6 +133,7 @@
 		3E1BC2CC14AC710300A67A34 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3EE6C84A14BEE90600EDA668 /* default.icns */,
 				3E1BC2DA14AC710300A67A34 /* MainMenu.xib */,
 				3E1BC2CD14AC710300A67A34 /* RingtoneMaker-Info.plist */,
 				3E1BC2CE14AC710300A67A34 /* Localizable.strings */,
@@ -156,9 +156,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3E1BC2C014AC710300A67A34 /* RingtoneMaker */ = {
+		3E1BC2C014AC710300A67A34 /* EasyRingtones */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3E1BC2DF14AC710300A67A34 /* Build configuration list for PBXNativeTarget "RingtoneMaker" */;
+			buildConfigurationList = 3E1BC2DF14AC710300A67A34 /* Build configuration list for PBXNativeTarget "EasyRingtones" */;
 			buildPhases = (
 				3E1BC2BD14AC710300A67A34 /* Sources */,
 				3E1BC2BE14AC710300A67A34 /* Frameworks */,
@@ -168,7 +168,7 @@
 			);
 			dependencies = (
 			);
-			name = RingtoneMaker;
+			name = EasyRingtones;
 			productName = RingtoneMaker;
 			productReference = 3E1BC2C114AC710300A67A34 /* RingtoneMaker.app */;
 			productType = "com.apple.product-type.application";
@@ -195,7 +195,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3E1BC2C014AC710300A67A34 /* RingtoneMaker */,
+				3E1BC2C014AC710300A67A34 /* EasyRingtones */,
 			);
 		};
 /* End PBXProject section */
@@ -210,7 +210,7 @@
 				3E1BC2DC14AC710300A67A34 /* MainMenu.xib in Resources */,
 				3E4AD24914AE090B00D79465 /* audio-file-icon.png in Resources */,
 				3E4AD25414AE3AB800D79465 /* play-button.png in Resources */,
-				3E67C22114B0C8D0002216AF /* icon_512.png in Resources */,
+				3EE6C84B14BEE90600EDA668 /* default.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,7 +345,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3E1BC2DF14AC710300A67A34 /* Build configuration list for PBXNativeTarget "RingtoneMaker" */ = {
+		3E1BC2DF14AC710300A67A34 /* Build configuration list for PBXNativeTarget "EasyRingtones" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3E1BC2E014AC710300A67A34 /* Debug */,
