@@ -25,7 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3E1BC2C114AC710300A67A34 /* RingtoneMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = RingtoneMaker.app; path = EasyRingtones.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E1BC2C114AC710300A67A34 /* EasyRingtones.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyRingtones.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E1BC2C514AC710300A67A34 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3E1BC2C814AC710300A67A34 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		3E1BC2C914AC710300A67A34 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -84,7 +84,7 @@
 		3E1BC2C214AC710300A67A34 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3E1BC2C114AC710300A67A34 /* RingtoneMaker.app */,
+				3E1BC2C114AC710300A67A34 /* EasyRingtones.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,7 +170,7 @@
 			);
 			name = EasyRingtones;
 			productName = RingtoneMaker;
-			productReference = 3E1BC2C114AC710300A67A34 /* RingtoneMaker.app */;
+			productReference = 3E1BC2C114AC710300A67A34 /* EasyRingtones.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
