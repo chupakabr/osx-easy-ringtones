@@ -164,7 +164,7 @@
 				<string key="NSName">_NSMainMenu</string>
 			</object>
 			<object class="NSWindowTemplate" id="972006081">
-				<int key="NSWindowStyleMask">15</int>
+				<int key="NSWindowStyleMask">7</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{335, 390}, {480, 171}}</string>
 				<int key="NSWTFlags">1954021376</int>
@@ -560,7 +560,6 @@
 									<string key="NSFrame">{{454, 7}, {16, 16}}</string>
 									<reference key="NSSuperview" ref="915816117"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<string key="NSReuseIdentifierKey">_NS:3891</string>
 									<int key="NSpiFlags">20746</int>

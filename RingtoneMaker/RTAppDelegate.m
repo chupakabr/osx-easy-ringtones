@@ -110,6 +110,12 @@
     RTLog(@"AppDelegate - applicationWillTerminate() - exit");
 }
 
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+{
+    RTLog(@"AppDelegate - applicationShouldTerminateAfterLastWindowClosed()");
+    return YES;
+}
+
 
 #pragma mark - Methods
 
