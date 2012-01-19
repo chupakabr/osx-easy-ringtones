@@ -76,6 +76,8 @@
     // Insert code here to initialize your application
     RTLog(@"AppDelegate - applicationDidFinishLaunching()");
     
+    state_ = RT_STATE_STOPPED;
+    
     // Setup notification handlers
     NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(startDroppingNotificationHandler:) name:RT_NOTIFICATION_START_DROPPING object:nil];
@@ -197,16 +199,25 @@
     @try
     {
         if ([self.playButton.title compare:RT_BUTTON_PLAY] == NSOrderedSame) {
+            
+            state_ = RT_STATE_PLAYING;
+            
             [audioPlayer_ setCurrentTime:[self.audioSlider doubleValue]];
             [audioPlayer_ play];
             [self.playButton setTitle:RT_BUTTON_STOP];
+            
         } else {
+            
+            state_ = RT_STATE_STOPPED;
+            
             [audioPlayer_ stop];
             [self.playButton setTitle:RT_BUTTON_PLAY];
         }
     }
     @catch (NSException *e)
     {
+        state_ = RT_STATE_STOPPED;
+        
         RTLog(@"Cannot play/stop audio player: %@", [e description]);
         [[NSAlert alertWithMessageText:NSLocalizedString(@"Cannot play audio", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
     }
@@ -220,6 +231,8 @@
     
     @try
     {
+        state_ = RT_STATE_PLAYING_INTERVAL;
+        
         [audioPlayer_ setCurrentTime:[self.audioSlider doubleValue]];
         if ([self.playButton.title compare:RT_BUTTON_PLAY] == NSOrderedSame) {
             [audioPlayer_ play];
@@ -228,6 +241,8 @@
     }
     @catch (NSException *e)
     {
+        state_ = RT_STATE_STOPPED;
+        
         RTLog(@"Cannot play/stop trimmed audio player: %@", [e description]);
         [[NSAlert alertWithMessageText:NSLocalizedString(@"Cannot play trimmed audio", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
     }    
@@ -236,6 +251,7 @@
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
     RTLog(@"RTAppDelegate - audioPlayerDidFinishPlaying()");
+    state_ = RT_STATE_STOPPED;
     [self.playButton performSelectorOnMainThread:@selector(setTitle:) withObject:RT_BUTTON_PLAY waitUntilDone:YES];
 }
 
@@ -261,6 +277,7 @@
     
     // Cleanup previous player and replace with new
     if (audioPlayer_) {
+        state_ = RT_STATE_STOPPED;
         [audioPlayer_ stop];
         [audioPlayer_ release];
     }
@@ -309,8 +326,22 @@
         return;
     }
     
-    // Slider value
-    [self.audioSlider setDoubleValue:[audioPlayer_ currentTime]];
+    // Check times for PLAYING_INTERVAL logic
+    NSTimeInterval endTime = [self getTimeInterval:[self.endTimeText stringValue]];
+    NSTimeInterval curPlayerTime = [audioPlayer_ currentTime];
+    if (state_ == RT_STATE_PLAYING_INTERVAL && curPlayerTime >= endTime) {
+        
+        // Slider value
+        [self.audioSlider setDoubleValue:[self getTimeInterval:[self.startTimeText stringValue]]];
+        
+        // Change audio player current time position
+        [audioPlayer_ setCurrentTime:[self.audioSlider doubleValue]];
+        
+    } else {
+        
+        // Slider value
+        [self.audioSlider setDoubleValue:[audioPlayer_ currentTime]];
+    }
     
     // Time string
     [self.currentTimeLabel setStringValue:[self getTimeString:[audioPlayer_ currentTime]]];
@@ -320,6 +351,13 @@
 {
     if (!audioPlayer_) {
         return;
+    }
+    
+    // Check times for PLAYING_INTERVAL logic
+    NSTimeInterval endTime = [self getTimeInterval:[self.endTimeText stringValue]];
+    NSTimeInterval changedCurTime = [self.audioSlider doubleValue];
+    if (state_ == RT_STATE_PLAYING_INTERVAL && changedCurTime >= endTime) {
+        state_ = RT_STATE_PLAYING;
     }
     
     // Audio player current time

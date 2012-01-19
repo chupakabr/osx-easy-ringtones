@@ -13,12 +13,20 @@
 #import "RTSlider.h"
 #import "RTImageView.h"
 
+
+#define RT_STATE_STOPPED 0
+#define RT_STATE_PLAYING 1
+#define RT_STATE_PLAYING_INTERVAL 2
+
+
 @interface RTAppDelegate : NSObject <NSApplicationDelegate, AVAudioPlayerDelegate>
 {
 @private
     AVAudioPlayer * audioPlayer_;
     NSURL * audioFileURL_;
     NSURL * outputURL_;
+    
+    int state_;
     
     //props
     IBOutlet NSWindow * _window;
