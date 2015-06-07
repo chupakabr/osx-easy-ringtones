@@ -14,6 +14,8 @@
 #define RT_BUTTON_PLAY NSLocalizedString(@"Play", nil)
 #define RT_BUTTON_STOP NSLocalizedString(@"Stop", nil)
 
+#define RT_DEFAULT_TRACK_DURATION 10.0
+
 
 @interface RTAppDelegate()
 
@@ -28,6 +30,10 @@
 - (NSTimeInterval) getTimeInterval:(NSString *)timeStr;
 - (void) removeFile:(NSURL *)fileURL;
 - (void) removeFileAtPath:(NSString *)filePath;
+
+- (NSTimeInterval) fixEndTime:(NSTimeInterval)endTime
+                    startTime:(NSTimeInterval)startTime
+                     updateUi:(BOOL)updateUi;
 
 @end
 
@@ -118,7 +124,6 @@
     return YES;
 }
 
-
 #pragma mark - Methods
 
 - (void) enableControls:(id)dummy
@@ -135,6 +140,10 @@
     [self.audioSlider setEnabled:YES];
     [self.startButton setEnabled:YES];
     [self.endButton setEnabled:YES];
+    
+    // enable text inputs
+    [self.startTimeText setEnabled:YES];
+    [self.endTimeText setEnabled:YES];
 }
 
 - (void) disableControls:(NSNumber *)noProgressIndicator
@@ -156,6 +165,10 @@
     [self.audioSlider setEnabled:NO];
     [self.startButton setEnabled:NO];
     [self.endButton setEnabled:NO];
+    
+    // enable text inputs
+    [self.startTimeText setEnabled:NO];
+    [self.endTimeText setEnabled:NO];
 }
 
 - (void) audioTrimmed:(id)dummy
@@ -181,10 +194,10 @@
     [self.startTimeText setStringValue:[self getTimeString:0.0]];
     
     // Set end time to defaults
-    [self.endTimeText setStringValue:[self getTimeString:30.0]];
+    [self.endTimeText setStringValue:[self getTimeString:RT_DEFAULT_TRACK_DURATION]];
     if (audioPlayer_) {
-        if ([audioPlayer_ duration] < 30) {
-            [self.endTimeText setStringValue:[self getTimeString:[audioPlayer_ duration]]];            
+        if ([audioPlayer_ duration] < RT_DEFAULT_TRACK_DURATION) {
+            [self.endTimeText setStringValue:[self getTimeString:[audioPlayer_ duration]]];
         }
     }
 }
@@ -335,12 +348,15 @@
     }
     
     // Check times for PLAYING_INTERVAL logic
-    NSTimeInterval endTime = [self getTimeInterval:[self.endTimeText stringValue]];
+    NSTimeInterval startTime = [self getTimeInterval:[self.startTimeText stringValue]];
+    NSTimeInterval endTime = [self fixEndTime:[self getTimeInterval:[self.endTimeText stringValue]]
+                                    startTime:startTime
+                                     updateUi:YES];
     NSTimeInterval curPlayerTime = [audioPlayer_ currentTime];
     if (state_ == RT_STATE_PLAYING_INTERVAL && curPlayerTime >= endTime) {
         
         // Slider value
-        [self.audioSlider setDoubleValue:[self getTimeInterval:[self.startTimeText stringValue]]];
+        [self.audioSlider setDoubleValue:startTime];
         
         // Change audio player current time position
         [audioPlayer_ setCurrentTime:[self.audioSlider doubleValue]];
@@ -391,13 +407,20 @@
         
         // Check times if not out of bounds
         if (endPosition > [audioPlayer_ duration]) {
-            RTLog(@"WARN Rip Audio: end time if greater that audio duration, %f > %f! Fixing to audio duration", endPosition, [audioPlayer_ duration]);
+            RTLog(@"WARN Rip Audio: end time is greater than audio duration, %f > %f! Fixing to audio duration", endPosition, [audioPlayer_ duration]);
+            [self.endTimeText setStringValue:[self getTimeString:[audioPlayer_ duration]]];
             endPosition = [audioPlayer_ duration];
         }
         if (startPosition > [audioPlayer_ duration]) {
-            RTLog(@"WARN Rip Audio: start time if greater that audio duration, %f > %f! Fixing to zero", startPosition, [audioPlayer_ duration]);
+            RTLog(@"WARN Rip Audio: start time is greater than audio duration, %f > %f! Fixing to zero", startPosition, [audioPlayer_ duration]);
+            [self.startTimeText setStringValue:[self getTimeString:0.0f]];
             startPosition = 0.0;
         }
+        if (startPosition > endPosition) {
+            RTLog(@"WARN Rip Audio: start time is greater than end time, %f > %f! Fixing to +%fs", startPosition, endPosition, RT_DEFAULT_TRACK_DURATION);
+            endPosition = [self fixEndTime:endPosition startTime:startPosition updateUi:YES];
+        }
+        
         NSTimeInterval duration = endPosition - startPosition;
         
         // Prepare for audio trimming
@@ -495,7 +518,9 @@
     
     NSTimeInterval tm = 0.0;
     
-    if (firstColonPos != NSNotFound && secondColonPos != NSNotFound && dotPos != NSNotFound) {
+    if (firstColonPos != NSNotFound && secondColonPos != NSNotFound && dotPos != NSNotFound
+        && secondColonPos+2 < timeStr.length && dotPos+2 < timeStr.length)
+    {
         NSNumberFormatter * f = [[[NSNumberFormatter alloc] init] autorelease];
         [f setNumberStyle:NSNumberFormatterDecimalStyle];
         
@@ -538,6 +563,18 @@
     if (filePath) {
         [self removeFile:[NSURL fileURLWithPath:filePath]];
     }
+}
+
+- (NSTimeInterval) fixEndTime:(NSTimeInterval)endTime startTime:(NSTimeInterval)startTime updateUi:(BOOL)updateUi
+{
+    if (endTime <= startTime) {
+        endTime = startTime + RT_DEFAULT_TRACK_DURATION;
+        
+        if (updateUi) {
+            [self.endTimeText setStringValue:[self getTimeString:endTime]];
+        }
+    }
+    return endTime;
 }
 
 #pragma mark - Notifications handlers
