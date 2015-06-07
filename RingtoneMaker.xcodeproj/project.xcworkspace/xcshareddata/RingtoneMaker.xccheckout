@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>30CAA0FE-34B2-4037-9E8A-3901538D5783</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RingtoneMaker</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>A93A863FBE77CBA6BC01785C76C53DE0128C503D</key>
+		<string>github.com:chupakabr/osx-easy-ringtones.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RingtoneMaker.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>A93A863FBE77CBA6BC01785C76C53DE0128C503D</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:chupakabr/osx-easy-ringtones.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>A93A863FBE77CBA6BC01785C76C53DE0128C503D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A93A863FBE77CBA6BC01785C76C53DE0128C503D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>osx-easy-ringtones</string>
+		</dict>
+	</array>
+</dict>
+</plist>

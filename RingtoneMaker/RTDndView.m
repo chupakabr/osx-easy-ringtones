@@ -50,8 +50,8 @@
     if (origFileName_) {
         [origFileName_ release];
     }
-    
-    [self release];
+
+    [super dealloc];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
@@ -112,7 +112,7 @@
     // Copy original audio file to newely created
     NSError * errors;
     if (![[NSFileManager defaultManager] copyItemAtPath:filePath toPath:tempFilePath error:&errors]) {
-        [NSException raise:@"RTCannotCopyAudioFile" format:[errors description]];
+        [NSException raise:@"RTCannotCopyAudioFile" format:@"%@", [errors description]];
     }
     
     // Store orig file name

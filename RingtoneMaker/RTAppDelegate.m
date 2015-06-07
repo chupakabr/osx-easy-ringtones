@@ -219,7 +219,11 @@
         state_ = RT_STATE_STOPPED;
         
         RTLog(@"Cannot play/stop audio player: %@", [e description]);
-        [[NSAlert alertWithMessageText:NSLocalizedString(@"Cannot play audio", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
+        [[NSAlert alertWithMessageText:NSLocalizedString(@"Cannot play audio", nil)
+                         defaultButton:@"OK"
+                       alternateButton:nil
+                           otherButton:nil
+             informativeTextWithFormat:@"%@", [e reason]] runModal];
     }
 }
 
@@ -244,7 +248,11 @@
         state_ = RT_STATE_STOPPED;
         
         RTLog(@"Cannot play/stop trimmed audio player: %@", [e description]);
-        [[NSAlert alertWithMessageText:NSLocalizedString(@"Cannot play trimmed audio", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
+        [[NSAlert alertWithMessageText:NSLocalizedString(@"Cannot play trimmed audio", nil)
+                         defaultButton:@"OK"
+                       alternateButton:nil
+                           otherButton:nil
+             informativeTextWithFormat:@"%@", [e reason]] runModal];
     }    
 }
 
@@ -271,7 +279,7 @@
     AVAudioPlayer * newAudioPlayer = [[[AVAudioPlayer alloc] initWithContentsOfURL:newAudioUrl error:&errors] autorelease];
     if (!newAudioPlayer) {
         RTLog(@"RTAppDelegate - Cannot init new AVAudioPlayer! file: '%@'", newAudioUrl);
-        [NSException raise:@"RTCannotCreateAudioPlayer" format:[errors description]];
+        [NSException raise:@"RTCannotCreateAudioPlayer" format:@"%@", [errors description]];
     }
     newAudioPlayer.delegate = self;
     
@@ -403,7 +411,7 @@
         
         NSError * errors;
         if (![avComposition insertTimeRange:audioDuration ofAsset:audioFileAsset atTime:kCMTimeZero error:&errors]) {
-            [NSException raise:@"RTCannotRipAudioFile" format:[errors description]];
+            [NSException raise:@"RTCannotRipAudioFile" format:@"%@", [errors description]];
         }
         
         // Check if the file already exists and remove it
@@ -431,7 +439,11 @@
     @catch (NSException *e)
     {
         RTLog(@"ERR! Cannot Rip audio composition: %@", [e description]);
-        [[NSAlert alertWithMessageText:NSLocalizedString(@"Cannot trim audio", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
+        [[NSAlert alertWithMessageText:NSLocalizedString(@"Cannot trim audio", nil)
+                         defaultButton:@"OK"
+                       alternateButton:nil
+                           otherButton:nil
+             informativeTextWithFormat:@"%@", [e reason]] runModal];
         [self performSelectorOnMainThread:@selector(enableControls:) withObject:nil waitUntilDone:YES];
     }
 }
@@ -556,7 +568,11 @@
     {
         RTLog(@"ERR! Cannot drop audio file: '%@'", [e description]);
         [self removeFileAtPath:audioFilePath];
-        [[NSAlert alertWithMessageText:NSLocalizedString(@"Invalid audio file", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[e reason]] runModal];
+        [[NSAlert alertWithMessageText:NSLocalizedString(@"Invalid audio file", nil)
+                         defaultButton:@"OK"
+                       alternateButton:nil
+                           otherButton:nil
+             informativeTextWithFormat:@"%@", [e reason]] runModal];
     }
     @finally
     {
